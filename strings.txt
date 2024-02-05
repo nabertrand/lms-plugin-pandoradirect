@@ -1,0 +1,14 @@
+PLUGIN_PANDORA_DIRECT_NAME
+	EN	Pandora Direct
+
+PLUGIN_PANDORA_DIRECT_DESC
+	EN	Pandora Direct - provides access to Pandora without mysqueezebox.com
+
+PLUGIN_PANDORA_DIRECT_PREMIUM
+	EN	Premium account
+
+PLUGIN_PANDORA_DIRECT_PREMIUM_DESC
+	EN	Higher quality stream - requires premium subscription
+
+PLUGIN_PANDORA_DIRECT_MISSING_CREDS
+	EN	Please enter your Pandora credentials in the Pandora Direct plugin

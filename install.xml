@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<extension>
+	<id>c0f19b8f-ddfd-4f70-8921-ee0ee9330f1d</id>
+	<name>PLUGIN_PANDORA_DIRECT_NAME</name>
+	<module>Plugins::PandoraDirect::Plugin</module>
+	<icon>plugins/PandoraDirect/html/icon.png</icon>
+	<version>1.0</version>
+	<description>PLUGIN_PANDORA_DIRECT_DESC</description>
+	<creator>Nick Bertrand</creator>
+	<defaultState>disabled</defaultState>
+	<optionsURL>plugins/PandoraDirect/settings.html</optionsURL>
+	<type>2</type>
+	<targetApplication>
+		<id>Logitech Media Server</id>
+		<minVersion>8.3</minVersion>
+		<maxVersion>*</maxVersion>
+	</targetApplication>
+</extension>
