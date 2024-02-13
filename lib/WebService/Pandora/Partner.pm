@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use WebService::Pandora::Method;
-use Data::Dumper;
 
 use constant WEBSERVICE_VERSION => '5';
 
@@ -45,7 +44,7 @@ sub error {
 
 sub login {
 
-    my ( $self ) = @_;
+    my ( $self, $cb ) = @_;
 
     # make sure all arguments are given
     if ( !defined( $self->{'username'} ) ||
@@ -56,6 +55,7 @@ sub login {
          !defined( $self->{'host'} ) ) {
 
         $self->error( 'The username, password, deviceModel, encryption_key, decryption_key, and host must all be provided to the constructor.' );
+        $self->{'cb'}->();
         return;
     }
 
@@ -66,19 +66,18 @@ sub login {
                                                    host => $self->{'host'},
                                                    params => {'username' => $self->{'username'},
                                                               'password' => $self->{'password'},
-                                                              'deviceModel' => $self->{'deviceModel'},
+                                       'deviceModel' => $self->{'deviceModel'},
                                                               'version' => "5"} );
 
-    my $result = $method->execute();
-
-    # detect error
-    if ( !$result ) {
-
-        $self->error( $method->error() );
-        return;
-    }
-
-    return $result;
+    $method->execute(
+        sub {
+            my ($res) = @_;
+            if ($method->error) {
+                $self->error( $method->error )
+            }
+            $cb->($res);
+        }
+    );
 }
 
 1;

@@ -1,24 +1,11 @@
 [% PROCESS settings/header.html %]
 
-	[% IF has_session %]
-		[% WRAPPER setting title="SETUP_USERNAME" desc="" %]
-			<div>[% prefs.pref_username %]</div>
-			<br/>
-			<input type="hidden" name="pref_username" value="[% prefs.pref_username | html %]">
-			<input name="pref_logout" type="submit" class="stdclick" value="[% "SETUP_SIGNOUT" | string %]"><br/><br/>
-		[% END %]
-	[% ELSE %]
-		[% WRAPPER setting title="SETUP_USERNAME" desc="" %]
-			<input type="text" class="stdedit" name="pref_username" id="username" value="[% prefs.pref_username | html %]" size="40">
-		[% END %]
-
-		[% WRAPPER setting title="SETUP_PASSWORD" desc="" %]
-			<input type="password" class="stdedit" name="password" id="password" size="40">
-		[% END %]
+	[% WRAPPER setting title="SETUP_USERNAME" desc="" %]
+		<input type="text" class="stdedit" name="pref_username" id="username" value="[% prefs.pref_username | html %]" size="40">
 	[% END %]
-	[% WRAPPER setting title="PLUGIN_PANDORA_DIRECT_PREMIUM" desc="PLUGIN_PANDORA_DIRECT_PREMIUM_DESC" %]
-		<input type="checkbox" class="stdedit" name="pref_premium" id="premium" [% IF prefs.pref_premium %]checked="checked" [% END %] />
-		<label for="premium">[% PLUGIN_PANDORA_DIRECT_PREMIUM_DESC | string %]</label>
+
+	[% WRAPPER setting title="SETUP_PASSWORD" desc="" %]
+		<input type="password" class="stdedit" name="pref_password" id="password" size="40">
 	[% END %]
 
 [% PROCESS settings/footer.html %]

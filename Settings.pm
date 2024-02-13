@@ -9,7 +9,8 @@ use strict;
 
 use base qw(Slim::Web::Settings);
 
-use Plugins::PandoraDirect::API;
+use MIME::Base64 (qw/encode_base64/);
+use Data::Dumper;
 use Slim::Utils::Log;
 use Slim::Utils::Prefs;
 
@@ -20,7 +21,7 @@ sub name {
 	return Slim::Web::HTTP::CSRF->protectName('PLUGIN_PANDORA_DIRECT_NAME');
 }
 
-sub prefs { return ($prefs, qw(username premium) )}
+sub prefs { return ($prefs, qw(username password) )}
 
 sub page {
 	return Slim::Web::HTTP::CSRF->protectURI('plugins/PandoraDirect/settings.html');
@@ -29,32 +30,13 @@ sub page {
 sub handler {
 	my ($class, $client, $params, $callback, @args) = @_;
 
-	if ( $params->{pref_logout} ) {
-		$prefs->remove('listen_key');
-		$prefs->remove('subscriptions');
+	$log->debug("Params: " . Data::Dumper::Dumper($params));
+	if ( $params->{pref_password} ) {
+		$params->{pref_password} = encode_base64($params->{pref_password}, '');
 	}
-	elsif ( $params->{saveSettings} ) {
-		# set credentials if mail changed or a password is defined and it has changed
-		if ( $params->{pref_username} && $params->{password} ) {
-			Plugins::PandoraDirect::API->authenticate({
-				username => $params->{pref_username},
-				password => $params->{password},
-				premium  => $params->{pref_premium},
-			}, sub {
-				my $body = $class->SUPER::handler($client, $params);
-				$callback->( $client, $params, $body, @args );
-			});
-
-			return;
-		}
-	}
+	$log->debug("Params: " . Data::Dumper::Dumper($params));
 
 	return $class->SUPER::handler($client, $params);
-}
-
-sub beforeRender {
-	my ($class, $params, $client) = @_;
-	$params->{has_session} = $prefs->get('listen_key') && $prefs->get('subscriptions') && 1;
 }
 
 1;
