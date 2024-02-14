@@ -113,7 +113,7 @@ sub updateNextTrack {
 	$client->master->pluginData(playlist => \@playlist);
 
 	$song->bitrate( $track->{'audioUrlMap'}->{'highQuality'}->{'bitrate'} * 1000);
-	$song->duration( $track->{'trackLength'});
+	$song->duration( $track->{'trackLength'} * 1);
 	$song->pluginData( $track );
 	$song->streamUrl( $track->{'audioUrlMap'}->{'highQuality'}->{'audioUrl'});
 	$callback->();
@@ -169,7 +169,6 @@ sub getMetadataFor {
 				#	tooltip => $client->string('PLUGIN_PANDORA_I_LIKE'),
 				#	command => $track->{allowFeedback} ? [ 'pandora', 'rate', 1 ] : [ 'jivedummycommand' ],
 				#},
-				repeat => 0,
 
 				# replace shuffle with Thumbs Down
 				#shuffle => {
@@ -178,7 +177,6 @@ sub getMetadataFor {
 				#	tooltip => $client->string('PLUGIN_PANDORA_I_DONT_LIKE'),
 				#	command => $track->{allowFeedback} ? [ 'pandora', 'rate', 0 ] : [ 'jivedummycommand' ],
 				#},
-				shuffle => 0,
 			}
 		};
 	}

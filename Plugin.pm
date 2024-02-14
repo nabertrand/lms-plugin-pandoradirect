@@ -12,10 +12,6 @@ use Slim::Utils::Prefs;
 
 use WebService::Pandora;
 use WebService::Pandora::Partner::AIR;
-use Cwd ();
-use File::Basename ();
-use File::Spec ();
-use lib File::Spec->catdir(File::Basename::dirname(Cwd::abs_path __FILE__), 'lib/perl5');
 use MIME::Base64 (qw/decode_base64/);
 use Data::Dumper;
 
